@@ -3,6 +3,7 @@ import express from "express";
 
 import cors from "cors";
 import connectDB from "./config/db.js";
+import { userRoutes } from "./routes/user.routes.js";
 
 const app = express();
 await connectDB();
@@ -15,6 +16,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+app.use("/api/user", userRoutes);
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
