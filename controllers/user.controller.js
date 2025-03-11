@@ -67,9 +67,30 @@ const clerkWebhooks = async (req, res) => {
     });
   }
 };
+// api controller function to get user available credits
+const getUserCredits = async (req, res) => {
+  try {
+    const { clerkId } = req.body;
+    const user = await userModel.findOne({
+      clerkId,
+    });
+    res.status(200).json({
+      message: "User credits fetched successfully",
+      success: true,
+      credits: user.creditBalance,
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).json({
+      message: e.message,
+      success: false,
+    });
+  }
+};
 
 const userControllers = {
   clerkWebhooks,
+  getUserCredits,
 };
 
 export default userControllers;
